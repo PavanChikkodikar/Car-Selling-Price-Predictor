@@ -2,6 +2,7 @@ import streamlit as st
 import pickle
 model = pickle.load(open('RF_price_predicting_model.pkl','rb'))
 
+
 def main():
     string = "Car Price Predictor"
     st.set_page_config(page_title=string, page_icon="🚗") 
@@ -11,8 +12,10 @@ def main():
             "https://imgd.aeplcdn.com/0x0/n/cw/ec/27032/s60-exterior-right-front-three-quarter-3.jpeg",
             width=400, # Manually Adjust the width of the image as per requirement
         )
+
     st.write('')
     st.write('')
+
     years = st.number_input('In which year car was purchased ?',1990, 2021, step=1, key ='year')
     Years_old = 2021-years
 
@@ -33,17 +36,20 @@ def main():
         Fuel_Type_Petrol=0
         Fuel_Type_Diesel=0
 
+
     Seller_Type_Individual = st.selectbox('Are you a dealer or an individual ?', ('Dealer','Individual'), key='dealer')
     if(Seller_Type_Individual=='Individual'):
         Seller_Type_Individual=1
     else:
         Seller_Type_Individual=0	
 
+
     Transmission_Mannual = st.selectbox('What is the Transmission Type ?', ('Manual','Automatic'), key='manual')
     if(Transmission_Mannual=='Mannual'):
         Transmission_Mannual=1
     else:
         Transmission_Mannual=0
+
 
     if st.button("Estimate Price", key='predict'):
         try:
@@ -56,6 +62,7 @@ def main():
                 st.success("You can sell the car for {} lakhs 🙌".format(output))
         except:
             st.warning("Opps!! Something went wrong\nTry again")
+
 
 if __name__ == '__main__':
     main()
